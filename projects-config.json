@@ -1,0 +1,200 @@
+{
+  "user": {
+    "name": "qfpqhyl",
+    "displayName": "qfpqhyl",
+    "title": "Full-Stack Developer",
+    "bio": "专注于Python开发和前端技术，热爱数据分析、Web开发和自动化工具。",
+    "location": "中国",
+    "email": "qfpqhyl@gmail.com",
+    "github": "https://github.com/qfpqhyl",
+    "website": "https://qfpqhyl.github.io",
+    "avatar": "https://avatars.githubusercontent.com/u/95489429?v=4",
+    "skills": {
+      "Python": 90,
+      "Vue.js": 85,
+      "JavaScript": 80,
+      "Web爬虫": 85,
+      "数据分析": 80,
+      "HTML/CSS": 75,
+      "自动化工具": 85
+    }
+  },
+  "categories": {
+    "python": {
+      "name": "Python 项目",
+      "description": "数据分析、自动化工具、Web爬虫等Python项目",
+      "icon": "🐍",
+      "color": "#3776ab"
+    },
+    "frontend": {
+      "name": "前端项目", 
+      "description": "Vue.js、HTML/CSS等前端开发项目",
+      "icon": "🎨",
+      "color": "#42b883"
+    },
+    "tools": {
+      "name": "实用工具",
+      "description": "各种实用工具和脚本",
+      "icon": "🛠️",
+      "color": "#f39c12"
+    },
+    "learning": {
+      "name": "学习资源",
+      "description": "学习资料和教程分享",
+      "icon": "📚",
+      "color": "#e74c3c"
+    }
+  },
+  "projects": [
+    {
+      "id": "yanshan-university-learning-materials-sharing",
+      "name": "燕山大学学习资料分享",
+      "description": "大学学习资料分享平台，包含各种课程资源和学习笔记",
+      "category": "learning",
+      "language": "Jupyter Notebook",
+      "stars": 20,
+      "forks": 3,
+      "url": "https://github.com/qfpqhyl/Yanshan-University-learning-materials-sharing",
+      "homepage": null,
+      "topics": ["学习资料", "大学", "教育"],
+      "featured": true,
+      "created_at": "2023-07-22",
+      "updated_at": "2025-06-29"
+    },
+    {
+      "id": "cumcm2023b", 
+      "name": "2023年数学建模比赛B题",
+      "description": "2023年全国大学生数学建模比赛B题解决方案（河北省一等奖）",
+      "category": "python",
+      "language": "Python",
+      "stars": 14,
+      "forks": 1,
+      "url": "https://github.com/qfpqhyl/CUMCM2023B",
+      "homepage": null,
+      "topics": ["数学建模", "竞赛", "数据分析"],
+      "featured": true,
+      "created_at": "2023-09-11",
+      "updated_at": "2023-09-12"
+    },
+    {
+      "id": "iscc-tools",
+      "name": "ISCC 工具集",
+      "description": "一些关于ISCC平台的实用脚本和工具",
+      "category": "python",
+      "language": "Python", 
+      "stars": 10,
+      "forks": 1,
+      "url": "https://github.com/qfpqhyl/ISCC_Tools",
+      "homepage": null,
+      "topics": ["工具", "脚本", "自动化"],
+      "featured": true,
+      "created_at": "2024-05-13",
+      "updated_at": "2024-06-02"
+    },
+    {
+      "id": "qfpqhyl-github-io",
+      "name": "个人主页",
+      "description": "个人GitHub主页网站",
+      "category": "frontend",
+      "language": "HTML",
+      "stars": 4,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/qfpqhyl.github.io",
+      "homepage": "https://qfpqhyl.github.io",
+      "topics": ["个人主页", "HTML", "网站"],
+      "featured": false,
+      "created_at": "2023-01-23",
+      "updated_at": "2024-01-29"
+    },
+    {
+      "id": "local-img2bed-img",
+      "name": "本地图片上传工具",
+      "description": "将*.md中的本地图片一键上传到图床并替换路径引用",
+      "category": "python",
+      "language": "Python",
+      "stars": 4,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/local_img2bed_img",
+      "homepage": null,
+      "topics": ["图床", "Markdown", "工具"],
+      "featured": false,
+      "created_at": "2024-01-25",
+      "updated_at": "2024-01-25"
+    },
+    {
+      "id": "shell-assistant",
+      "name": "Shell 助手",
+      "description": "通过命令行交互，提供Shell脚本建议和错误修正",
+      "category": "python",
+      "language": "Python",
+      "stars": 2,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/ShellAssistant",
+      "homepage": null,
+      "topics": ["Shell", "CLI", "助手"],
+      "featured": false,
+      "created_at": "2024-12-29",
+      "updated_at": "2024-12-29"
+    },
+    {
+      "id": "image-watermark-vue3",
+      "name": "Vue3 图片水印工具",
+      "description": "可以在线为你的图片添加自定义水印并保存预设",
+      "category": "frontend",
+      "language": "Vue",
+      "stars": 1,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/ImageWatermarkByVue3",
+      "homepage": "http://image.qfpqhyl.cloudns.org/",
+      "topics": ["Vue3", "图片处理", "水印"],
+      "featured": false,
+      "created_at": "2025-06-19",
+      "updated_at": "2025-06-27"
+    },
+    {
+      "id": "web-monitor",
+      "name": "网页监控工具",
+      "description": "使用 Python 编写的网页内容自动监控及邮件通知工具",
+      "category": "python",
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/WebMonitor",
+      "homepage": null,
+      "topics": ["监控", "爬虫", "邮件通知"],
+      "featured": false,
+      "created_at": "2025-06-22",
+      "updated_at": "2025-06-22"
+    },
+    {
+      "id": "date2graduate",
+      "name": "考研倒计时",
+      "description": "距离2026年研究生入学考试还有多少天？",
+      "category": "frontend",
+      "language": "CSS",
+      "stars": 1,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/date2Graduate",
+      "homepage": "https://date2graduate.qfpqhyl.cloudns.org/",
+      "topics": ["倒计时", "考研", "工具"],
+      "featured": false,
+      "created_at": "2024-11-28",
+      "updated_at": "2024-12-21"
+    },
+    {
+      "id": "tgbot-webscraping",
+      "name": "Telegram 爬虫机器人",
+      "description": "基于网络爬虫与Python的telebot实现",
+      "category": "python",
+      "language": "Python",
+      "stars": 1,
+      "forks": 0,
+      "url": "https://github.com/qfpqhyl/TgBot_WebScrapying",
+      "homepage": null,
+      "topics": ["Telegram", "爬虫", "机器人"],
+      "featured": false,
+      "created_at": "2024-01-14",
+      "updated_at": "2024-01-14"
+    }
+  ]
+}
