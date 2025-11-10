@@ -74,6 +74,10 @@ body {
 }
 .chapter-title svg {
   color: var(--primary-color);
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: middle;
+  margin-right: 0.3em;
 }
 .tips {
   font-size: 0.5em;
