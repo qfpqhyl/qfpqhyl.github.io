@@ -388,7 +388,7 @@
     
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script type="text/javascript">
-  const param = JSON.parse('{"enable":true,"owner":"qfpqhyl","admin":["qfpqhyl"],"repo":"qfpqhyl.github.io","distractionFreeMode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN"}')
+  const param = JSON.parse('{"enable":true,"owner":"qfpqhyl","admin":["qfpqhyl"],"repo":"qfpqhyl.github.io","clientID":"your_client_id_here","clientSecret":"your_client_secret_here","distractionFreeMode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN"}')
   let title = location.pathname.substr(0, 50); 
   param.id = title
   const gitalk = new Gitalk(param)
