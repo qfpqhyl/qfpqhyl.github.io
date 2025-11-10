@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Git 最佳实践：从入门到精通 | 秋风飘起黄叶落のblog
+      
+    </title>
+    <meta name="description" content="分享我的生活"/>
+    <meta name="keywords" content="生活,博客,个人"/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+
+  <meta name="generator" content="Hexo 8.1.1"></head>
+  <body>
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+    
+    
+    <div class=head>
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer" id="algolia-search"></div>
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/tech">技术杂谈</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+            
+              <a class="nav-menu-item" href='/cv/'>简历</a>
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner">
+      <div class="post-content__head">
+        <div class="post-title">Git 最佳实践：从入门到精通</div>
+        <div class="post-info">
+          
+  <a href="/tags/Git/" class="post-tag">#Git</a><a href="/tags/Version-Control/" class="post-tag">#Version Control</a><a href="/tags/Development/" class="post-tag">#Development</a><a href="/tags/Workflow/" class="post-tag">#Workflow</a>
+
+
+          <span class="post-date">2025-01-09</span>
+        </div>
+      </div>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="Git-最佳实践：从入门到精通"><a href="#Git-最佳实践：从入门到精通" class="headerlink" title="Git 最佳实践：从入门到精通"></a>Git 最佳实践：从入门到精通</h1><p>Git 是目前最流行的分布式版本控制系统，掌握 Git 不仅是程序员的必备技能，更是团队协作的基础。本文将从基础概念到高级技巧，全面介绍 Git 的最佳实践。</p>
+<h2 id="Git-基础概念"><a href="#Git-基础概念" class="headerlink" title="Git 基础概念"></a>Git 基础概念</h2><h3 id="理解-Git-的三个区域"><a href="#理解-Git-的三个区域" class="headerlink" title="理解 Git 的三个区域"></a>理解 Git 的三个区域</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">工作目录 (Working Directory)</span><br><span class="line">    ↓ git add</span><br><span class="line">暂存区 (Staging Area)</span><br><span class="line">    ↓ git commit</span><br><span class="line">本地仓库 (Local Repository)</span><br><span class="line">    ↓ git push</span><br><span class="line">远程仓库 (Remote Repository)</span><br></pre></td></tr></table></figure>
+
+<h3 id="分支的本质"><a href="#分支的本质" class="headerlink" title="分支的本质"></a>分支的本质</h3><p>分支本质上是一个指向提交的指针，理解这一点对于掌握 Git 至关重要。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">master  ●---●---●---●</span><br><span class="line">         \</span><br><span class="line">feature  ●---●---●</span><br></pre></td></tr></table></figure>
+
+<h2 id="基础工作流"><a href="#基础工作流" class="headerlink" title="基础工作流"></a>基础工作流</h2><h3 id="1-初始化和配置"><a href="#1-初始化和配置" class="headerlink" title="1. 初始化和配置"></a>1. 初始化和配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户信息</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your.email@example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置默认分支名</span></span><br><span class="line">git config --global init.defaultBranch main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置编辑器</span></span><br><span class="line">git config --global core.editor <span class="string">&quot;code --wait&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置差异工具</span></span><br><span class="line">git config --global merge.tool vscode</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-基本操作"><a href="#2-基本操作" class="headerlink" title="2. 基本操作"></a>2. 基本操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆仓库</span></span><br><span class="line">git <span class="built_in">clone</span> &lt;repository-url&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到暂存区</span></span><br><span class="line">git add &lt;file&gt;</span><br><span class="line">git add .                    <span class="comment"># 添加所有文件</span></span><br><span class="line">git add *.js                 <span class="comment"># 添加所有 .js 文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交</span></span><br><span class="line">git commit -m <span class="string">&quot;commit message&quot;</span></span><br><span class="line">git commit -am <span class="string">&quot;commit message&quot;</span>  <span class="comment"># 添加并提交已跟踪的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看提交历史</span></span><br><span class="line">git <span class="built_in">log</span></span><br><span class="line">git <span class="built_in">log</span> --oneline           <span class="comment"># 简洁显示</span></span><br><span class="line">git <span class="built_in">log</span> --graph             <span class="comment"># 图形化显示</span></span><br><span class="line">git <span class="built_in">log</span> --author=<span class="string">&quot;author&quot;</span>   <span class="comment"># 按作者筛选</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h2><h3 id="Git-Flow-工作流"><a href="#Git-Flow-工作流" class="headerlink" title="Git Flow 工作流"></a>Git Flow 工作流</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建功能分支</span></span><br><span class="line">git checkout -b feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发完成后合并到 develop</span></span><br><span class="line">git checkout develop</span><br><span class="line">git merge feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布版本</span></span><br><span class="line">git checkout -b release/v1.0.0</span><br><span class="line"><span class="comment"># 测试和修复</span></span><br><span class="line">git checkout main</span><br><span class="line">git merge release/v1.0.0</span><br><span class="line">git tag v1.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="GitHub-Flow（简化版）"><a href="#GitHub-Flow（简化版）" class="headerlink" title="GitHub Flow（简化版）"></a>GitHub Flow（简化版）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 从 main 创建分支</span></span><br><span class="line">git checkout main</span><br><span class="line">git pull origin main</span><br><span class="line">git checkout -b feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 开发并提交</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Add new feature&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推送并创建 Pull Request</span></span><br><span class="line">git push origin feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 代码审查后合并</span></span><br><span class="line">git checkout main</span><br><span class="line">git pull origin main</span><br><span class="line">git branch -d feature-branch</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交信息规范"><a href="#提交信息规范" class="headerlink" title="提交信息规范"></a>提交信息规范</h2><h3 id="Conventional-Commits"><a href="#Conventional-Commits" class="headerlink" title="Conventional Commits"></a>Conventional Commits</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;[optional scope]: &lt;description&gt;</span><br><span class="line"></span><br><span class="line">[optional body]</span><br><span class="line"></span><br><span class="line">[optional footer(s)]</span><br></pre></td></tr></table></figure>
+
+<h4 id="提交类型"><a href="#提交类型" class="headerlink" title="提交类型"></a>提交类型</h4><ul>
+<li><code>feat</code>: 新功能</li>
+<li><code>fix</code>: 修复 bug</li>
+<li><code>docs</code>: 文档更新</li>
+<li><code>style</code>: 代码格式（不影响功能）</li>
+<li><code>refactor</code>: 重构</li>
+<li><code>test</code>: 测试相关</li>
+<li><code>chore</code>: 构建过程或辅助工具的变动</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;feat(auth): add JWT authentication&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;fix(api): resolve null pointer exception&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;docs(readme): update installation guide&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h2><h3 id="1-交互式-Rebase"><a href="#1-交互式-Rebase" class="headerlink" title="1. 交互式 Rebase"></a>1. 交互式 Rebase</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改最近的几次提交</span></span><br><span class="line">git rebase -i HEAD~3</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebase 界面中的操作：</span></span><br><span class="line"><span class="comment"># pick: 使用该提交</span></span><br><span class="line"><span class="comment"># reword: 修改提交信息</span></span><br><span class="line"><span class="comment"># edit: 修改提交</span></span><br><span class="line"><span class="comment"># squash: 合并到前一个提交</span></span><br><span class="line"><span class="comment"># drop: 删除该提交</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-暂存工作"><a href="#2-暂存工作" class="headerlink" title="2. 暂存工作"></a>2. 暂存工作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暂存当前工作</span></span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暂存并添加信息</span></span><br><span class="line">git stash push -m <span class="string">&quot;work in progress&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看暂存列表</span></span><br><span class="line">git stash list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复暂存</span></span><br><span class="line">git stash pop</span><br><span class="line">git stash apply stash@&#123;0&#125;  <span class="comment"># 应用指定暂存</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-查找和修复问题"><a href="#3-查找和修复问题" class="headerlink" title="3. 查找和修复问题"></a>3. 查找和修复问题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二分查找问题提交</span></span><br><span class="line">git bisect start</span><br><span class="line">git bisect bad  <span class="comment"># 当前版本有问题</span></span><br><span class="line">git bisect good &lt;good-commit-hash&gt;</span><br><span class="line"><span class="comment"># Git 会自动切换到中间版本，测试后标记 good/bad</span></span><br><span class="line">git bisect reset  <span class="comment"># 结束二分查找</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件修改历史</span></span><br><span class="line">git blame &lt;file&gt;</span><br><span class="line">git <span class="built_in">log</span> -p &lt;file&gt;  <span class="comment"># 查看文件每次提交的修改</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Cherry-pick"><a href="#4-Cherry-pick" class="headerlink" title="4. Cherry-pick"></a>4. Cherry-pick</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将指定提交应用到当前分支</span></span><br><span class="line">git cherry-pick &lt;commit-hash&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用多个提交</span></span><br><span class="line">git cherry-pick &lt;commit1&gt; &lt;commit2&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不提交，只应用修改</span></span><br><span class="line">git cherry-pick --no-commit &lt;commit-hash&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="团队协作最佳实践"><a href="#团队协作最佳实践" class="headerlink" title="团队协作最佳实践"></a>团队协作最佳实践</h2><h3 id="1-分支命名规范"><a href="#1-分支命名规范" class="headerlink" title="1. 分支命名规范"></a>1. 分支命名规范</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 功能分支</span></span><br><span class="line">feature/user-authentication</span><br><span class="line">feature/payment-system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修复分支</span></span><br><span class="line">fix/login-bug</span><br><span class="line">fix/memory-leak</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布分支</span></span><br><span class="line">release/v1.2.0</span><br><span class="line">release/v2.0.0-beta</span><br><span class="line"></span><br><span class="line"><span class="comment"># 热修复分支</span></span><br><span class="line">hotfix/critical-security-fix</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-提交频率和粒度"><a href="#2-提交频率和粒度" class="headerlink" title="2. 提交频率和粒度"></a>2. 提交频率和粒度</h3><ul>
+<li><strong>频繁提交</strong>：完成一个小的功能点就提交</li>
+<li><strong>原子提交</strong>：一次提交只做一件事</li>
+<li><strong>可测试提交</strong>：每个提交都应该是一个可工作的状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ❌ 不好的做法</span></span><br><span class="line">git commit -m <span class="string">&quot;实现用户系统&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 好的做法</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: add user model&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: implement user registration&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: add email verification&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;test: add user system tests&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-代码审查流程"><a href="#3-代码审查流程" class="headerlink" title="3. 代码审查流程"></a>3. 代码审查流程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 创建 Pull Request</span></span><br><span class="line">git push origin feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 请求审查</span></span><br><span class="line"><span class="comment"># 在 GitHub/GitLab 上创建 PR 并指定审查者</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 根据反馈修改</span></span><br><span class="line">git commit -m <span class="string">&quot;fix: address review comments&quot;</span></span><br><span class="line">git push origin feature-branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 合并 PR</span></span><br><span class="line"><span class="comment"># 使用 squash merge 保持提交历史整洁</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题和解决方案"><a href="#常见问题和解决方案" class="headerlink" title="常见问题和解决方案"></a>常见问题和解决方案</h2><h3 id="1-合并冲突"><a href="#1-合并冲突" class="headerlink" title="1. 合并冲突"></a>1. 合并冲突</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发生冲突时</span></span><br><span class="line">git status  <span class="comment"># 查看冲突文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动编辑冲突文件，保留需要的代码</span></span><br><span class="line"><span class="comment"># 冲突标记：</span></span><br><span class="line"><span class="comment"># &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span></span><br><span class="line"><span class="comment"># 当前分支的代码</span></span><br><span class="line"><span class="comment"># =======</span></span><br><span class="line"><span class="comment"># 合并分支的代码</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt;&gt;&gt;&gt;&gt; other-branch</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决后标记为已解决</span></span><br><span class="line">git add &lt;conflicted-file&gt;</span><br><span class="line">git commit  <span class="comment"># 完成合并</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-撤销操作"><a href="#2-撤销操作" class="headerlink" title="2. 撤销操作"></a>2. 撤销操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 撤销工作区的修改</span></span><br><span class="line">git checkout -- &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销暂存区的修改</span></span><br><span class="line">git reset HEAD &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销最近的提交（保留修改）</span></span><br><span class="line">git reset --soft HEAD~1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销最近的提交（不保留修改）</span></span><br><span class="line">git reset --hard HEAD~1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销远程提交（谨慎使用）</span></span><br><span class="line">git reset --hard &lt;commit-hash&gt;</span><br><span class="line">git push --force-with-lease origin main</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-清理历史"><a href="#3-清理历史" class="headerlink" title="3. 清理历史"></a>3. 清理历史</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除已合并的分支</span></span><br><span class="line">git branch -d &lt;branch&gt;</span><br><span class="line">git branch -D &lt;branch&gt;  <span class="comment"># 强制删除</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理远程分支引用</span></span><br><span class="line">git remote prune origin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 垃圾回收</span></span><br><span class="line">git gc</span><br></pre></td></tr></table></figure>
+
+<h2 id="Git-Hooks-自动化"><a href="#Git-Hooks-自动化" class="headerlink" title="Git Hooks 自动化"></a>Git Hooks 自动化</h2><h3 id="常用-Hooks"><a href="#常用-Hooks" class="headerlink" title="常用 Hooks"></a>常用 Hooks</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .git/hooks/pre-commit</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">npm run lint</span><br><span class="line">npm run <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># .git/hooks/commit-msg</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line">commit_regex=<span class="string">&#x27;^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .&#123;1,50&#125;&#x27;</span></span><br><span class="line"><span class="keyword">if</span> ! grep -qE <span class="string">&quot;<span class="variable">$commit_regex</span>&quot;</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Invalid commit message format&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Husky（推荐）"><a href="#使用-Husky（推荐）" class="headerlink" title="使用 Husky（推荐）"></a>使用 Husky（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">npm install --save-dev husky</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化</span></span><br><span class="line">npx husky install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加 hook</span></span><br><span class="line">npx husky add .husky/pre-commit <span class="string">&quot;npm run lint&quot;</span></span><br><span class="line">npx husky add .husky/commit-msg <span class="string">&quot;npx commitlint --edit <span class="variable">$1</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="1-浅克隆"><a href="#1-浅克隆" class="headerlink" title="1. 浅克隆"></a>1. 浅克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只克隆最近的历史</span></span><br><span class="line">git <span class="built_in">clone</span> --depth 1 &lt;repository-url&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆指定分支</span></span><br><span class="line">git <span class="built_in">clone</span> --depth 1 --branch &lt;branch&gt; &lt;repository-url&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-优化大文件"><a href="#2-优化大文件" class="headerlink" title="2. 优化大文件"></a>2. 优化大文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 Git LFS 处理大文件</span></span><br><span class="line">git lfs track <span class="string">&quot;*.zip&quot;</span></span><br><span class="line">git lfs track <span class="string">&quot;*.mp4&quot;</span></span><br><span class="line">git add .gitattributes</span><br><span class="line">git add &lt;large-file&gt;</span><br><span class="line">git commit -m <span class="string">&quot;Add large file with LFS&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-忽略文件优化"><a href="#3-忽略文件优化" class="headerlink" title="3. 忽略文件优化"></a>3. 忽略文件优化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># .gitignore</span><br><span class="line"># 依赖</span><br><span class="line">node_modules/</span><br><span class="line">*.log</span><br><span class="line"></span><br><span class="line"># 构建输出</span><br><span class="line">dist/</span><br><span class="line">build/</span><br><span class="line"></span><br><span class="line"># IDE 文件</span><br><span class="line">.vscode/</span><br><span class="line">.idea/</span><br><span class="line"></span><br><span class="line"># 系统文件</span><br><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Git 是一个强大但复杂的工具，掌握以下要点将帮助你更有效地使用 Git：</p>
+<ol>
+<li><strong>理解基本概念</strong>：工作区、暂存区、仓库的关系</li>
+<li><strong>遵循工作流规范</strong>：选择适合团队的分支策略</li>
+<li><strong>编写清晰的提交信息</strong>：使用 Conventional Commits 规范</li>
+<li><strong>保持提交历史整洁</strong>：使用 rebase 和 squash</li>
+<li><strong>善用自动化</strong>：配置 hooks 和 CI&#x2F;CD</li>
+<li><strong>持续学习</strong>：Git 有很多高级功能值得探索</li>
+</ol>
+<p>记住，Git 的目标是为了更好地协作和管理代码历史。选择适合你团队的工作流，并保持一致性，比追求最”正确”的方式更重要。</p>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({"startOnload":true});
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2025/01/10/react-hooks-deep-dive/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596" />
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>React Hooks 深入解析：从原理到实践</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2025/01/08/autumn-reflections/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596" />
+        </svg>
+      </div>
+      秋日感悟：在落叶中寻找生活的诗意
+    </a>
+  
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+  <div class="foot-inner">
+    <div class="foot__head">
+      
+        <div class="foot-line">
+          <div class="matts">秋</div><div class="matts">风</div><div class="matts">飘</div><div class="matts">起</div><div class="matts">黄</div><div class="matts">叶</div><div class="matts">落</div>
+        </div>
+      
+        <div class="foot-line">
+          <div class="matts">岁</div><div class="matts">月</div><div class="matts">静</div><div class="matts">好</div><div class="matts">心</div><div class="matts">安</div><div class="matts">然</div>
+        </div>
+      
+    </div>
+    <div class="foot__body">
+      
+        <div class="foot-item">
+          <div class="foot-item__head">朋友</div>
+          <div class="foot-item__body">
+            
+            
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-link.svg" />
+            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">My GitHub</a>
+          </div>
+        
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-link+.svg" />
+            <a class="foot-link" href="mailto:tianbosong2674@outlook.com?subject=申请https://qfpqhyl.github.io的友链">申请友链</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+          </div>
+        </div>
+      
+      
+        <div class="foot-item">
+          <div class="foot-item__head">账号</div>
+          <div class="foot-item__body">
+            
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/logo-github.svg" />
+            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">qfpqhyl</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+          </div>
+        </div>
+      
+      <div class="foot-item">
+        <div class="foot-item__head">联系</div>
+        <div class="foot-item__body">
+          
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-email.svg" />
+            <a class="foot-link" href="mailto:tianbosong2674@outlook.com">tianbosong2674@outlook.com</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <a href="https://qfpqhyl.github.io">秋风飘起黄叶落のblog</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+      <svg width="20" height="20" viewBox="0 0 725 725">
+        <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z" />
+        <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z" />
+        <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z" />
+      </svg>
+      <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+    </div>
+  </div>
+</div>
+
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+      <script type="text/javascript">
+        docsearch({
+          appId: 'appId',
+          apiKey: 'apiKey',
+          indexName: 'indexName',
+          insights: 'true',
+          container: 'div#algolia-search',
+          debug: 'false'
+        });
+      </script>
+    
+    <script src="/js/copy-code.js"></script>
+    
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"qfpqhyl","admin":["qfpqhyl"],"repo":"qfpqhyl.github.io","distractionFreeMode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN"}')
+  let title = location.pathname.substr(0, 50); 
+  param.id = title
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>
