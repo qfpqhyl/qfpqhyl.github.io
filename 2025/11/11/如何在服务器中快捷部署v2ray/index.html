@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        如何在服务器中快捷部署V2Ray代理 | 秋风飘起黄叶落のblog
+      
+    </title>
+    <meta name="description" content="分享我的生活"/>
+    <meta name="keywords" content="生活,博客,个人"/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+
+  <meta name="generator" content="Hexo 8.1.1"></head>
+  <body>
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+    
+    
+    <div class=head>
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer" id="algolia-search"></div>
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/tech">技术杂谈</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+            
+              <a class="nav-menu-item" href='/cv/'>个人简历</a>
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner">
+      <div class="post-content__head">
+        <div class="post-title">如何在服务器中快捷部署V2Ray代理</div>
+        <div class="post-info">
+          
+  <a href="/tags/V2Ray/" class="post-tag">#V2Ray</a><a href="/tags/%E4%BB%A3%E7%90%86/" class="post-tag">#代理</a><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-tag">#服务器</a><a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/" class="post-tag">#网络工具</a><a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC/" class="post-tag">#自动化脚本</a>
+
+
+          <span class="post-date">2025-11-11</span>
+        </div>
+      </div>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="V2Ray-代理安装模块"><a href="#V2Ray-代理安装模块" class="headerlink" title="V2Ray 代理安装模块"></a>V2Ray 代理安装模块</h1><p>V2Ray 完整版安装脚本，无需 root 权限即可安装，支持 VMess、VLESS、Shadowsocks 协议，具备完整的服务器管理和订阅切换功能。</p>
+<h2 id="功能特性"><a href="#功能特性" class="headerlink" title="功能特性"></a>功能特性</h2><ul>
+<li>✅ <strong>多协议支持</strong>: VMess、VLESS、Shadowsocks</li>
+<li>✅ <strong>智能订阅解析</strong>: 自动解析多种格式订阅链接</li>
+<li>✅ <strong>服务器管理</strong>: 节点切换、状态监控、自动重连</li>
+<li>✅ <strong>代理模式</strong>: 本机代理 &#x2F; 局域网共享</li>
+<li>✅ <strong>安全认证</strong>: 支持用户名密码认证</li>
+<li>✅ <strong>DNS 优化</strong>: 国内 DNS 优化配置</li>
+<li>✅ <strong>智能路由</strong>: 分流规则，国内外流量智能处理</li>
+</ul>
+<h2 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h2><h3 id="步骤-1：准备工作"><a href="#步骤-1：准备工作" class="headerlink" title="步骤 1：准备工作"></a>步骤 1：准备工作</h3><p>如果服务器网络受限无法直接访问外网，需要先建立临时代理隧道：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在本地机器上执行（确保本地有代理服务运行在10809端口，根据自己情况，设置别的端口也可以）</span></span><br><span class="line">ssh -R 10809:127.0.0.1:10809 username@your-server-ip -p ssh-port</span><br></pre></td></tr></table></figure>
+
+<p>然后在服务器上设置临时代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:10809</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:10809</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-2：下载并运行安装脚本"><a href="#步骤-2：下载并运行安装脚本" class="headerlink" title="步骤 2：下载并运行安装脚本"></a>步骤 2：下载并运行安装脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载安装脚本</span></span><br><span class="line">wget https://raw.githubusercontent.com/qfpqhyl/server-scripts/main/proxy/linux/install_v2ray.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给脚本执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x install_v2ray.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行安装脚本</span></span><br><span class="line">./install_v2ray.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3：输入订阅链接"><a href="#步骤-3：输入订阅链接" class="headerlink" title="步骤 3：输入订阅链接"></a>步骤 3：输入订阅链接</h3><p>安装过程中会提示输入 V2Ray 订阅链接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请输入订阅链接: https://your-subscription-url.com/link/xxxxx</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-4：选择服务器"><a href="#步骤-4：选择服务器" class="headerlink" title="步骤 4：选择服务器"></a>步骤 4：选择服务器</h3><p>脚本会自动解析订阅并显示所有可用服务器，选择一个进行连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">=== 所有服务器 (25) ===</span><br><span class="line">[1] 🔵 香港-VMess-01</span><br><span class="line">    VMESS - hk1.example.com:443</span><br><span class="line">[2] 🟢 美国-VLESS-02</span><br><span class="line">    VLESS - us1.example.com:443</span><br><span class="line">[3] 🟡 日本-SS-03</span><br><span class="line">    SHADOWSOCKS - jp1.example.com:8080</span><br><span class="line"></span><br><span class="line">请选择要使用的服务器 (1-25) [默认: 1]: 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-5：完成安装"><a href="#步骤-5：完成安装" class="headerlink" title="步骤 5：完成安装"></a>步骤 5：完成安装</h3><p>安装完成后，运行以下命令加载别名配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>现在可以取消临时代理设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> http_proxy https_proxy</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本管理命令"><a href="#基本管理命令" class="headerlink" title="基本管理命令"></a>基本管理命令</h2><p>安装完成后，可使用以下别名命令（需要 <code>source ~/.bashrc</code> 生效）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务管理</span></span><br><span class="line">v2start          <span class="comment"># 启动V2Ray</span></span><br><span class="line">v2stop           <span class="comment"># 停止V2Ray</span></span><br><span class="line">v2restart        <span class="comment"># 重启V2Ray</span></span><br><span class="line">v2status         <span class="comment"># 查看状态</span></span><br><span class="line">v2log            <span class="comment"># 查看日志</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务器管理</span></span><br><span class="line">v2switch         <span class="comment"># 切换服务器</span></span><br><span class="line">v2list           <span class="comment"># 列出所有服务器</span></span><br><span class="line">v2vmess          <span class="comment"># 列出VMess服务器</span></span><br><span class="line">v2vless          <span class="comment"># 列出VLESS服务器</span></span><br><span class="line">v2ss             <span class="comment"># 列出Shadowsocks服务器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 订阅管理</span></span><br><span class="line">v2update         <span class="comment"># 更新订阅</span></span><br><span class="line">v2scan           <span class="comment"># 重新解析订阅</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 代理连接</span></span><br><span class="line">v2connect        <span class="comment"># 快速连接代理</span></span><br><span class="line">proxy_on         <span class="comment"># 开启代理</span></span><br><span class="line">proxy_off        <span class="comment"># 关闭代理</span></span><br><span class="line">proxy_status     <span class="comment"># 查看代理状态</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="代理端口配置"><a href="#代理端口配置" class="headerlink" title="代理端口配置"></a>代理端口配置</h3><table>
+<thead>
+<tr>
+<th>代理类型</th>
+<th>端口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SOCKS5</td>
+<td>1080</td>
+<td>通用代理协议</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>8080</td>
+<td>HTTP 代理协议</td>
+</tr>
+</tbody></table>
+<h3 id="DNS-配置"><a href="#DNS-配置" class="headerlink" title="DNS 配置"></a>DNS 配置</h3><ul>
+<li><strong>国内 DNS</strong>: 223.5.5.5 (阿里云)</li>
+<li><strong>备用 DNS</strong>: 114.114.114.114</li>
+<li><strong>国外 DNS</strong>: 8.8.8.8 (Google)</li>
+<li><strong>分流规则</strong>: 国内外流量智能分流</li>
+</ul>
+<h3 id="路由规则"><a href="#路由规则" class="headerlink" title="路由规则"></a>路由规则</h3><ul>
+<li><strong>直连</strong>: 私有 IP、国内 IP、国内域名</li>
+<li><strong>代理</strong>: 国外 IP 和域名</li>
+<li><strong>策略</strong>: IPOnDemand 智能选择</li>
+</ul>
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p>安装完成后，V2Ray 的工作目录位于 <code>~/v2ray/</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~/v2ray/</span><br><span class="line">├── v2ray                    # V2Ray 主程序</span><br><span class="line">├── config.json              # 当前配置文件</span><br><span class="line">├── servers_all.json         # 所有服务器配置</span><br><span class="line">├── subscription.txt         # 原始订阅内容</span><br><span class="line">├── subscription_url.txt     # 订阅链接</span><br><span class="line">├── v2ray.log                # 运行日志</span><br><span class="line">├── v2ray.pid                # 进程PID文件</span><br><span class="line">├── full_parser.py           # 订阅解析脚本</span><br><span class="line">├── server_manager.py        # 服务器管理脚本</span><br><span class="line">├── start.sh                 # 启动脚本</span><br><span class="line">├── stop.sh                  # 停止脚本</span><br><span class="line">├── restart.sh               # 重启脚本</span><br><span class="line">├── status.sh                # 状态脚本</span><br><span class="line">├── switch.sh                # 切换脚本</span><br><span class="line">├── update.sh                # 更新脚本</span><br><span class="line">└── connect.sh               # 连接脚本</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q-如何更换订阅链接？"><a href="#Q-如何更换订阅链接？" class="headerlink" title="Q: 如何更换订阅链接？"></a>Q: 如何更换订阅链接？</h3><p>A: 运行 <code>v2update</code> 命令，选择输入新的订阅链接即可。</p>
+<h3 id="Q-如何切换到其他服务器？"><a href="#Q-如何切换到其他服务器？" class="headerlink" title="Q: 如何切换到其他服务器？"></a>Q: 如何切换到其他服务器？</h3><p>A: 运行 <code>v2switch</code> 命令，选择要切换的服务器编号。</p>
+<h3 id="Q-局域网其他设备如何连接？"><a href="#Q-局域网其他设备如何连接？" class="headerlink" title="Q: 局域网其他设备如何连接？"></a>Q: 局域网其他设备如何连接？</h3><p>A: 确保选择局域网共享模式，使用以下地址：</p>
+<ul>
+<li>SOCKS5: <code>socks5://用户名:密码@服务器IP:1080</code></li>
+<li>HTTP: <code>http://用户名:密码@服务器IP:8080</code></li>
+</ul>
+<h3 id="Q-如何查看当前使用的服务器？"><a href="#Q-如何查看当前使用的服务器？" class="headerlink" title="Q: 如何查看当前使用的服务器？"></a>Q: 如何查看当前使用的服务器？</h3><p>A: 运行 <code>v2status</code> 命令，会显示当前服务器信息。</p>
+<h3 id="Q-连接失败怎么办？"><a href="#Q-连接失败怎么办？" class="headerlink" title="Q: 连接失败怎么办？"></a>Q: 连接失败怎么办？</h3><p>A:</p>
+<ol>
+<li>检查 <code>v2status</code> 确认服务运行状态</li>
+<li>查看 <code>v2log</code> 检查错误日志</li>
+<li>尝试 <code>v2switch</code> 切换其他服务器</li>
+<li>运行 <code>v2update</code> 更新订阅</li>
+</ol>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h3 id="v3-0"><a href="#v3-0" class="headerlink" title="v3.0"></a>v3.0</h3><ul>
+<li>新增 VLESS 协议支持</li>
+<li>优化订阅解析算法</li>
+<li>改进服务器管理界面</li>
+<li>增强错误处理机制</li>
+<li>添加连接测试功能</li>
+</ul>
+<h3 id="v2-0"><a href="#v2-0" class="headerlink" title="v2.0"></a>v2.0</h3><ul>
+<li>重构配置生成逻辑</li>
+<li>支持局域网共享模式</li>
+<li>添加用户认证功能</li>
+<li>优化 DNS 配置</li>
+</ul>
+<h3 id="v1-0"><a href="#v1-0" class="headerlink" title="v1.0"></a>v1.0</h3><ul>
+<li>基础 VMess 支持</li>
+<li>简单订阅解析</li>
+<li>基本服务器切换</li>
+</ul>
+<h2 id="技术支持"><a href="#技术支持" class="headerlink" title="技术支持"></a>技术支持</h2><p>如遇到问题，请：</p>
+<ol>
+<li>查看本文档的常见问题部分</li>
+<li>检查日志文件 <code>~/v2ray/v2ray.log</code></li>
+<li>提交 Issue 到项目仓库</li>
+</ol>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><ul>
+<li><strong>完整脚本仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/qfpqhyl/server-scripts">https://github.com/qfpqhyl/server-scripts</a></li>
+<li><strong>V2Ray 官方文档</strong>: <a target="_blank" rel="noopener" href="https://www.v2fly.org/">https://www.v2fly.org/</a></li>
+<li><strong>Hexo 博客教程</strong>: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a></li>
+</ul>
+<hr>
+<p><strong>注意</strong>: 本脚本仅用于学习和研究目的，请遵守当地法律法规。</p>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({"startOnload":true});
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+    <div class="post-nav">
+  
+    <div class="post-nav-item-left"></div>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2025/01/10/react-hooks-deep-dive/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596" />
+        </svg>
+      </div>
+      React Hooks 深入解析：从原理到实践
+    </a>
+  
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+  <div class="foot-inner">
+    <div class="foot__head">
+      
+        <div class="foot-line">
+          <div class="matts">秋</div><div class="matts">风</div><div class="matts">飘</div><div class="matts">起</div><div class="matts">黄</div><div class="matts">叶</div><div class="matts">落</div>
+        </div>
+      
+        <div class="foot-line">
+          <div class="matts">岁</div><div class="matts">月</div><div class="matts">静</div><div class="matts">好</div><div class="matts">心</div><div class="matts">安</div><div class="matts">然</div>
+        </div>
+      
+    </div>
+    <div class="foot__body">
+      
+        <div class="foot-item">
+          <div class="foot-item__head">朋友</div>
+          <div class="foot-item__body">
+            
+            
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-link.svg" />
+            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">My GitHub</a>
+          </div>
+        
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-link+.svg" />
+            <a class="foot-link" href="mailto:tianbosong2674@outlook.com?subject=申请https://qfpqhyl.github.io的友链">申请友链</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+          </div>
+        </div>
+      
+      
+        <div class="foot-item">
+          <div class="foot-item__head">账号</div>
+          <div class="foot-item__body">
+            
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/logo-github.svg" />
+            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">qfpqhyl</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+          </div>
+        </div>
+      
+      <div class="foot-item">
+        <div class="foot-item__head">联系</div>
+        <div class="foot-item__body">
+          
+
+
+  
+  
+    <div class="foot-link-group">
+      
+        
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/icon/icon-email.svg" />
+            <a class="foot-link" href="mailto:tianbosong2674@outlook.com">tianbosong2674@outlook.com</a>
+          </div>
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    </div>
+  
+
+
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <a href="https://qfpqhyl.github.io">秋风飘起黄叶落のblog</a> &nbsp;|&nbsp;记录我的生活
+    </div>
+  </div>
+</div>
+
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+      <script type="text/javascript">
+        docsearch({
+          appId: 'appId',
+          apiKey: 'apiKey',
+          indexName: 'indexName',
+          insights: 'true',
+          container: 'div#algolia-search',
+          debug: 'false'
+        });
+      </script>
+    
+    <script src="/js/copy-code.js"></script>
+    
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"qfpqhyl","admin":["qfpqhyl"],"repo":"qfpqhyl.github.io","clientID":"your_client_id_here","clientSecret":"your_client_secret_here","distractionFreeMode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN"}')
+  let title = location.pathname.substr(0, 50); 
+  param.id = title
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>
