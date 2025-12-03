@@ -4,13 +4,29 @@
     <meta charset="utf8"/>
     
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://qfpqhyl.github.io/2025/11/11/how-to-install-v2ray-on-server/"/>
+
+    <!-- Language and alternate links -->
+    
+      <html lang="zh-CN"/>
+    
+
     <title>
       
         如何在服务器中快捷部署V2Ray代理 | 秋风飘起黄叶落のblog
       
     </title>
-    <meta name="description" content="分享我的生活"/>
-    <meta name="keywords" content="生活,博客,个人"/>
+    
+      <meta name="description" content="
+将科研工作的第一关由配置各种镜像源改编为配置网络环境。
+
+V2Ray 代理安装模块V2Ray 完整版安装脚本，无需 root 权限即可安装，支持 VMess、VLESS、Shadowsocks 协议，具备完整的服务器管理和订阅切换功能。
+功能特性
+✅ 多协议支持: VMess、VLESS、Shadowsocks..."/>
+          <meta name="keywords" content="个人博客,技术博客,大模型,AI开发,全栈开发,编程学习,生活随笔,Hexo博客,qfpqhyl"/>
+    
     
       <link rel="apple-touch-icon"
             sizes="180x180"
@@ -58,6 +74,85 @@
           type="text/css"
           href='/css/layout.css'/>
     
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://qfpqhyl.github.io/2025/11/11/how-to-install-v2ray-on-server/"/>
+    <meta property="og:title" content="
+      
+        如何在服务器中快捷部署V2Ray代理 | 秋风飘起黄叶落のblog
+      "/>
+    <meta property="og:description" content="
+      
+        
+将科研工作的第一关由配置各种镜像源改编为配置网络环境。
+
+V2Ray 代理安装模块V2Ray 完整版安装脚本，无需 root 权限即可安装，支持 VMess、VLESS、Shadowsocks 协议，具备完整的服务器管理和订阅切换功能。
+功能特性
+✅ 多协议支持: VMess、VLESS、Shadowsocks...
+      "/>
+    <meta property="og:image" content="
+      
+        /
+      "/>
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content="https://qfpqhyl.github.io/2025/11/11/how-to-install-v2ray-on-server/"/>
+    <meta property="twitter:title" content="
+      
+        如何在服务器中快捷部署V2Ray代理 | 秋风飘起黄叶落のblog
+      "/>
+    <meta property="twitter:description" content="
+      
+        
+将科研工作的第一关由配置各种镜像源改编为配置网络环境。
+
+V2Ray 代理安装模块V2Ray 完整版安装脚本，无需 root 权限即可安装，支持 VMess、VLESS、Shadowsocks 协议，具备完整的服务器管理和订阅切换功能。
+功能特性
+✅ 多协议支持: VMess、VLESS、Shadowsocks...
+      "/>
+    <meta property="twitter:image" content="
+      
+        /
+      "/>
+
+    <!-- Structured Data -->
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "如何在服务器中快捷部署V2Ray代理",
+      "image": [
+        
+          
+        
+      ],
+      "datePublished": "2025-11-11",
+      "dateModified": "2025-11-26",
+      "author": {
+        "@type": "Person",
+        "name": "qfpqhyl"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "秋风飘起黄叶落のblog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "/images/logo.svg"
+        }
+      },
+      "description": "
+将科研工作的第一关由配置各种镜像源改编为配置网络环境。
+
+V2Ray 代理安装模块V2Ray 完整版安装脚本，无需 root 权限即可安装，支持 VMess、VLESS、Shadowsocks 协议，具备完整的服务器管理和订阅切换功能。
+功能特性
+✅ 多协议支持: VMess、VLESS、Shadowsocks..."
+    }
+    </script>
+    
+
     
   <link rel="stylesheet" type="text/css" href="/css/post.css"/>
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
@@ -114,7 +209,15 @@
 
 
           <span class="post-date">2025-11-11</span>
+          
+            <span class="post-category">分类:
+              
+                <a href="/"></a>
+              
+            </span>
+          
         </div>
+        
       </div>
       
         <aside class="toc-outer">
@@ -362,11 +465,19 @@
                  height="20px"
                  width="20px"
                  src="/images/logo-github.svg" />
-            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">qfpqhyl</a>
+            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/qfpqhyl">@qfpqhyl</a>
           </div>
         
       
         
+        
+          <div class="text">
+            <img alt="link"
+                 height="20px"
+                 width="20px"
+                 src="/images/logo-twitter.svg" />
+            <a class="foot-link" target="_blank" rel="noopener" href="https://x.com/qfpqhyl">@qfpqhyl</a>
+          </div>
         
       
         
@@ -455,6 +566,35 @@
   gitalk.render('gitalk-container')
 </script>
 
+
+  <!-- 面包屑导航结构化数据 -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "首页",
+        "item": "/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "",
+        "item": "/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "如何在服务器中快捷部署V2Ray代理",
+        "item": "https://qfpqhyl.github.io/2025/11/11/how-to-install-v2ray-on-server/"
+      }
+    ]
+  }
+  </script>
   
 
   </body>
