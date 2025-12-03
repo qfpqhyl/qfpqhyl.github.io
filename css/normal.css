@@ -1,14 +1,4 @@
 @font-face {
-  font-family: LXGWWenKaiGBScreen;
-  src: url("/font/LXGWWenKaiGBScreen.ttf");
-  font-weight: normal;
-}
-@font-face {
-  font-family: LXGWWenKaiGBScreen;
-  src: url("/font/LXGWWenKaiGBScreen.ttf");
-  font-weight: bold;
-}
-@font-face {
   font-family: sourceSans;
   src: url("/font/SourceSans3VF-Roman.ttf");
 }
@@ -28,7 +18,7 @@
   font-weight: bold;
 }
 html {
-  font-family: LXGWWenKaiGBScreen, sourceHanSerif, serif;
+  font-family: sourceHanSerif, serif;
   font-size: 18px;
   color: #555;
   text-align: justify;

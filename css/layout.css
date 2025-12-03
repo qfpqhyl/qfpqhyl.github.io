@@ -1,14 +1,4 @@
 @font-face {
-  font-family: LXGWWenKaiGBScreen;
-  src: url("/font/LXGWWenKaiGBScreen.ttf");
-  font-weight: normal;
-}
-@font-face {
-  font-family: LXGWWenKaiGBScreen;
-  src: url("/font/LXGWWenKaiGBScreen.ttf");
-  font-weight: bold;
-}
-@font-face {
   font-family: sourceSans;
   src: url("/font/SourceSans3VF-Roman.ttf");
 }
@@ -28,7 +18,7 @@
   font-weight: bold;
 }
 html {
-  font-family: LXGWWenKaiGBScreen, sourceHanSerif, serif;
+  font-family: sourceHanSerif, serif;
   font-size: 18px;
   color: #555;
   text-align: justify;
@@ -350,7 +340,7 @@ mjx-container {
   color: #ee4242;
 }
 .like-text {
-  font-family: LXGWWenKaiGBScreen;
+  font-family: sourceHanSerif, serif;
   margin: 0.5em 0 1em;
   font-weight: bold;
   color: #666;
@@ -609,7 +599,7 @@ mjx-container {
   margin: 0 20px 50px;
   font-size: 36px;
   font-weight: bold;
-  font-family: LXGWWenKaiGBScreen;
+  font-family: sourceHanSerif, serif;
   cursor: default;
   display: flex;
   flex-wrap: wrap;

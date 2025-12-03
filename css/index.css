@@ -40,7 +40,7 @@
   font-size: 20px;
   font-weight: 400;
   margin: 10px 0;
-  font-family: LXGWWenKaiGBScreen;
+  font-family: sourceHanSerif, serif;
   letter-spacing: 0.2em;
 }
 #heart-curve {
@@ -80,7 +80,7 @@
 .poem {
   font-size: 18px;
   position: absolute;
-  font-family: LXGWWenKaiGBScreen;
+  font-family: sourceHanSerif, serif;
   left: 50%;
   top: calc(50% + 80px);
   opacity: 0.2;
@@ -104,7 +104,7 @@
 }
 .about-text {
   font-weight: bold;
-  font-family: LXGWWenKaiGBScreen;
+  font-family: sourceHanSerif, serif;
 }
 .about-title {
   text-align: center;
